@@ -1,0 +1,3 @@
+add_executable(test_rigid_transform test_rigid_transform.cc)
+target_link_libraries(test_rigid_transform common)
+install(TARGETS test_rigid_transform OPTIONAL)

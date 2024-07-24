@@ -1,0 +1,3 @@
+add_executable(test_icp3d_svd test_icp3d_svd.cc icp3d_svd.cc)
+target_link_libraries(test_icp3d_svd common)
+install(TARGETS test_icp3d_svd OPTIONAL)
