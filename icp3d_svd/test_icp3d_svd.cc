@@ -11,7 +11,7 @@
 void test_pcl_icp()
 {
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
-    std::string path = R"(C:\Users\song.liu.CN\Desktop\ar\ls_blog\testdata\rabbit.pcd)";
+    std::string path = R"(.\testdata\rabbit.pcd)";
     pcl::io::loadPCDFile<pcl::PointXYZ>(path, *cloud);
 
     Eigen::Isometry3f SE3 = Eigen::Isometry3f::Identity();
@@ -43,7 +43,7 @@ void test_pcl_icp()
 void test_icp_svd()
 {
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
-    std::string path = R"(C:\Users\song.liu.CN\Desktop\ar\ls_blog\testdata\rabbit.pcd)";
+    std::string path = R"(.\testdata\rabbit.pcd)";
     pcl::io::loadPCDFile<pcl::PointXYZ>(path, *cloud);
 
     std::vector<Eigen::Vector3d> cloud_eigen;
