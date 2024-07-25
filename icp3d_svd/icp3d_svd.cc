@@ -55,6 +55,7 @@ bool ICP3Dsvd::Impl::setTargetPointCloud(const std::vector<Eigen::Vector3d> &tar
 bool ICP3Dsvd::Impl::registration(const double eps, const int iteration,
                                   Eigen::Matrix3d &R, Eigen::Vector3d &T)
 {
+    // 1. Initialize RigidTransformation
     transformPointCloud_(R, T, m_source);
     Eigen::Matrix4d final_transformation = Eigen::Matrix4d::Identity();
     final_transformation.block<3, 3>(0, 0) = R;
@@ -62,18 +63,18 @@ bool ICP3Dsvd::Impl::registration(const double eps, const int iteration,
 
     for (int i = 0; i < iteration; ++i)
     {
-        // Knn search
+        // 2. Knn search
         std::vector<Eigen::Vector3d> source_;
         double err_ = matchPointCloud_(source_);
-        // Estimate RigidTransformation
+        // 3. Estimate RigidTransformation
         Eigen::Matrix4d cur_transformation = m_p_estimator->solve(source_, m_target);
-        // Update Point Cloud
+        // 4. Update Point Cloud
         transformPointCloud_(cur_transformation.block<3, 3>(0, 0),
                              cur_transformation.block<3, 1>(0, 3), m_source);
-        // Update Transformation
+        // 5. Update Transformation
         final_transformation = cur_transformation * final_transformation;
 
-        // Converage
+        // 6. Converage
         if (err_ < eps)
         {
             R = final_transformation.block<3, 3>(0, 0);
